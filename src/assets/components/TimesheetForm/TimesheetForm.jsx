@@ -2,24 +2,63 @@ import './TimesheetForm.css'
 
 import { useState } from 'react'
 
-function TimesheetForm(props) {
-    const initialTimesheetFormData = {
+const initialTimesheetFormData = {
     date: "",
     location: "",
     startTime: "",
     endTime: "",
-    unpaidBreakDuration: "",
-    totalHours: "",
-    entryMethod: "automatic",
+    unpaidBreakDuration: "0",
+    totalPaidHours: "",
     rateMultiplier: "1"
     }
+
+function TimesheetForm(props) {
 
     const [timesheetFormData, setTimesheetFormData] = useState(initialTimesheetFormData)
 
     function handleSubmit(event) {
         event.preventDefault();
 
-        props.onAddTimesheet(timesheetFormData)
+        props.onAddTimesheet(timesheetFormData);
+    }
+
+    function calculateTotalHours() {
+        if (
+            timesheetFormData.startTime === "" || timesheetFormData.endTime === ""
+        ) {
+            return null;
+        }
+
+        const startTime = timesheetFormData.startTime.split(":");
+        
+        const startTimeHours = Number(startTime[0]);
+        const startTimeMinutes = Number(startTime[1]);
+
+        const startTimeTotalMinutes = (startTimeHours * 60) + startTimeMinutes;
+
+
+        const endTime = timesheetFormData.endTime.split(":");
+
+        const endTimeHours = Number(endTime[0]);
+        const endTimeMinutes = Number(endTime[1]);
+
+        const endTimeTotalMinutes = (endTimeHours * 60) + endTimeMinutes;
+
+        const breakMinutes = Number(timesheetFormData.unpaidBreakDuration);
+
+        const totalMinutes = (endTimeTotalMinutes - startTimeTotalMinutes) - breakMinutes;
+
+        const totalHours = totalMinutes / 60;
+
+        return totalHours;
+    }
+
+    const totalHours = calculateTotalHours();
+
+    let calculatedTotalHours = null
+
+    if (totalHours !== null) {
+        calculatedTotalHours = Number(totalHours.toFixed(2))
     }
 
     return (
@@ -91,6 +130,21 @@ function TimesheetForm(props) {
                 }}
             />
 
+            <p id='total-hours'>Total Hours: {calculatedTotalHours}</p>
+
+            <label htmlFor="total-paid-hours-input">Total Paid Hours</label>
+            <input 
+                id='total-paid-hours-input'
+                type="number"
+                value={timesheetFormData.totalPaidHours} 
+                onChange={(event) => {
+                    setTimesheetFormData(previousData => ({
+                        ...previousData,
+                        totalPaidHours: event.target.value
+                    }))
+                }}
+            />
+
             <label htmlFor="rate-multiplier-input">Hourly Rate Mulitplier</label>
             <input 
                 id='rate-multiplier-input'
@@ -103,48 +157,6 @@ function TimesheetForm(props) {
                     }))
                 }}
             />
-
-            <div className="entry-method-buttons">
-                <button
-                    onClick={() => {
-                        setTimesheetFormData(previousData => ({
-                            ...previousData,
-                            entryMethod: "automatic"
-                        }))
-                    }}
-                >
-                    Automatic Hours Caluclation
-                </button>
-                
-                <button
-                    onClick={() => {
-                        setTimesheetFormData(previousData => ({
-                            ...previousData,
-                            entryMethod: "manual"
-                        }))
-                    }}
-                >
-                    Manual Hours Entry
-                </button>
-            </div>
-
-            <label htmlFor="total-hours">Total Hours</label>
-            {timesheetFormData.entryMethod === "automatic" && (
-                <p>{timesheetFormData.totalHours}</p>
-            )}
-            {timesheetFormData.entryMethod === "manual" && (
-                <input
-                    id='total-hours'
-                    type='number'
-                    value={timesheetFormData.totalHours}
-                    onChange={(event) => {
-                        setTimesheetFormData(previousData => ({
-                            ...previousData,
-                            totalHours: event.target.value
-                        }))
-                    }}
-                />
-            )}
 
             <button
                 type='submit'
