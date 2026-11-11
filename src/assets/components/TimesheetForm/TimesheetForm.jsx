@@ -19,7 +19,24 @@ function TimesheetForm(props) {
     function handleSubmit(event) {
         event.preventDefault();
 
-        props.onAddTimesheet(timesheetFormData);
+        let updatedPaidHours
+
+        if (timesheetFormData.totalPaidHours === "") {
+            updatedPaidHours = calculatedTotalHours
+        } else {
+            updatedPaidHours = timesheetFormData.totalPaidHours
+        }
+
+        const updatedTimeSheet = {
+            date: timesheetFormData.date,
+            location: timesheetFormData.location,
+            startTime: timesheetFormData.startTime,
+            endTime: timesheetFormData.endTime,
+            totalPaidHours: updatedPaidHours,
+            rateMultiplier: timesheetFormData.rateMultiplier
+        }
+
+        props.onAddTimesheet(updatedTimeSheet);
     }
 
     function calculateTotalHours() {
@@ -130,7 +147,7 @@ function TimesheetForm(props) {
                 }}
             />
 
-            <p id='total-hours'>Total Hours: {calculatedTotalHours}</p>
+            <p id='total-hours'>Total Hours: {calculatedTotalHours}</p>   
 
             <label htmlFor="total-paid-hours-input">Total Paid Hours</label>
             <input 
