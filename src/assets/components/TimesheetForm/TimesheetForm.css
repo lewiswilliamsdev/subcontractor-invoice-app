@@ -25,6 +25,8 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+
+    margin-bottom: 20px;
 }
 
 .form-header h2 {
@@ -79,6 +81,8 @@
     min-width: 0;
     min-height: 48px;
     padding: 12px 14px;
+
+    appearance: none;
 
     box-sizing: border-box;
 
@@ -149,12 +153,27 @@
     line-height: 1.5;
 }
 
+.total-hours-container {
+    display: flex;
+    gap: 20px;
+}
+
+.total-hours-container p {
+    margin: 0;
+    color: #1d4ed8;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
 /* Submit button */
 
 .submit-timesheet-button {
     width: 100%;
     min-height: 50px;
     padding: 13px 20px;
+
+    margin-top: 20px;
 
     display: flex;
     align-items: center;

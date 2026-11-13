@@ -165,6 +165,7 @@
             props.onAddTimesheet(updatedTimeSheet);
 
             setTimesheetFormData(initialTimesheetFormData);
+            setErrorData(initialErrorData);
         }
 
         return (
@@ -196,184 +197,186 @@
                         <p className='error-message'>{errorData.date}</p> 
                         : null}
                     </div>
-                </div>
                 
-                <div className="form-field">
-                    <label htmlFor="location-input">Location</label>
-                    <input 
-                        id='location-input'
-                        className={errorData.location !== "" ? "invalid location-input" : "location-input"}
-                        type="text"
-                        value={timesheetFormData.location}
-                        onChange={(event) => {
-                            setTimesheetFormData(previousData => ({
-                                ...previousData,
-                                location: event.target.value
-                            }))
-                        }}
-                    />
-
-                    {errorData.location !== "" ? 
-                    <p className='error-message'>{errorData.location}</p> 
-                    : null}
-                </div>
-
-                <div className="form-field">
-                    <label htmlFor="start-time-input">Start Time</label>
-                    <input
-                        id='start-time-input'
-                        className={errorData.startTime !== "" || errorData.timeError !== "" 
-                            ? "invalid start-time-input" : "start-time-input"}
-                        type="time" 
-                        value={timesheetFormData.startTime}
-                        onChange={(event) => {
-                            setTimesheetFormData(previousData => ({
-                                ...previousData,
-                                startTime: event.target.value
-                            }))
-                        }}
-                    />
+                    <div className="form-field">
+                        <label htmlFor="location-input">Location</label>
+                        <input 
+                            id='location-input'
+                            className={errorData.location !== "" ? "invalid location-input" : "location-input"}
+                            type="text"
+                            value={timesheetFormData.location}
+                            onChange={(event) => {
+                                setTimesheetFormData(previousData => ({
+                                    ...previousData,
+                                    location: event.target.value
+                                }))
+                            }}
+                        />
     
-                    {errorData.startTime !== "" ? 
-                    <p className='error-message'>{errorData.startTime}</p> 
-                    : null}
-                </div>
-
-                <div className="form-field">
-                    <label htmlFor="end-time-input">End Time</label>
-                    <input 
-                        id='end-time-input'
-                        className={errorData.endTime !== "" || errorData.timeError !== "" 
-                            ? "invalid end-time-input" : "end-time-input"}
-                        type="time"
-                        value={timesheetFormData.endTime}
-                        onChange={(event) => {
-                            setTimesheetFormData(previousData => ({
-                                ...previousData,
-                                endTime: event.target.value
-                            }))
-                        }}
-                    />
-    
-                    {errorData.endTime !== "" ? 
-                    <p className='error-message'>{errorData.endTime}</p> 
-                    : null}
-    
-                    {errorData.timeError !== "" ?
-                    <p className='error-message'>{errorData.timeError}</p> 
-                    : null
-                    }
-                </div>
-
-                <div className="form-field">
-                    <label htmlFor="break-duration-input">Unpaid Break Duration In Minutes</label>
-                    <input 
-                        id='break-duration-input'
-                        className={errorData.unpaidBreakDuration !== "" 
-                            ? "invalid unpaid-break-duration-input"
-                            : "unpaid-break-duration-input"
-                        }
-                        type="number"
-                        value={timesheetFormData.unpaidBreakDuration}
-                        onChange={(event) => {
-                            setTimesheetFormData(previousData => ({
-                                ...previousData,
-                                unpaidBreakDuration: event.target.value
-                            }))
-                        }}
-                    />
-                    
-                    {errorData.unpaidBreakDuration !== "" ? 
-                    <p className='error-message'>{errorData.unpaidBreakDuration}</p> 
-                    : null}
-                </div>
-
-                <div className="form-field form-field-full">
-                    <div className="calculatedHours">
-                        <p 
-                            id='total-hours'>
-                                Total Hours: 
-                                {totalHours !== null ? totalHours.toFixed(2) : null}
-                        </p>
+                        {errorData.location !== "" ? 
+                        <p className='error-message'>{errorData.location}</p> 
+                        : null}
                     </div>
-                </div>
-
-                <div className="form-field">
-                    <label htmlFor="total-paid-hours-input">Total Paid Hours</label>
-                    <input 
-                        id='total-paid-hours-input'
-                        className={errorData.totalPaidHours !== "" 
-                            ? "invalid total-paid-hours-input"
-                            : "total-paid-hours-input"
-                        }
-                        type="number"
-                        value={timesheetFormData.totalPaidHours} 
-                        onChange={(event) => {
-                            setTimesheetFormData(previousData => ({
-                                ...previousData,
-                                totalPaidHours: event.target.value
-                            }))
-                        }}
-                    />
     
-                    {errorData.totalPaidHours !== "" ? 
-                    <p className='error-message'>{errorData.totalPaidHours}</p> 
-                    : null}
-                </div>
-
-                <div className="form-field">
-                    <label htmlFor="rate-multiplier-select">Hourly Rate Mulitplier</label>
-                    <select 
-                        name="rate-multiplier-select" 
-                        id="rate-multiplier-select"
-                        className='rate-multiplier-select'
-                        value={timesheetFormData.rateMultiplier}
-                        onChange={(event) => {
-                            setTimesheetFormData(previousData => ({
-                                ...previousData,
-                                rateMultiplier: event.target.value
-                            }))
-                        }}
-                        >
-                            <option value="1">1</option>
-                            <option value="1.25">1.25</option>
-                            <option value="1.5">1.5</option>
-                            <option value="1.75">1.75</option>
-                            <option value="2">2</option>
-                            <option value="2.25">2.25</option>
-                            <option value="2.5">2.5</option>
-                            <option value="2.75">2.75</option>
-                            <option value="3">3</option>
-                    </select>
-                </div>
-
-                <div className="form-field">
-                    <label htmlFor="total-miles-input">Total Miles</label>
-                    <input 
-                        id='total-miles-input'
-                        className={errorData.totalMiles !== "" 
-                            ? "invalid total-miles-input"
-                            : "total-miles-input"
-                        }
-                        type="number"
-                        value={timesheetFormData.totalMiles}
-                        onChange={(event) => {
-                            setTimesheetFormData(previousData => ({
-                                ...previousData,
-                                totalMiles: event.target.value
-                            }))
-                        }}
-                    />
+                    <div className="form-field">
+                        <label htmlFor="start-time-input">Start Time</label>
+                        <input
+                            id='start-time-input'
+                            className={errorData.startTime !== "" || errorData.timeError !== "" 
+                                ? "invalid start-time-input" : "start-time-input"}
+                            type="time" 
+                            value={timesheetFormData.startTime}
+                            onChange={(event) => {
+                                setTimesheetFormData(previousData => ({
+                                    ...previousData,
+                                    startTime: event.target.value
+                                }))
+                            }}
+                        />
+        
+                        {errorData.startTime !== "" ? 
+                        <p className='error-message'>{errorData.startTime}</p> 
+                        : null}
+                    </div>
     
-                    {errorData.totalMiles !== "" ? 
-                    <p className='error-message'>{errorData.totalMiles}</p> 
-                    : null}
-                </div>
+                    <div className="form-field">
+                        <label htmlFor="end-time-input">End Time</label>
+                        <input 
+                            id='end-time-input'
+                            className={errorData.endTime !== "" || errorData.timeError !== "" 
+                                ? "invalid end-time-input" : "end-time-input"}
+                            type="time"
+                            value={timesheetFormData.endTime}
+                            onChange={(event) => {
+                                setTimesheetFormData(previousData => ({
+                                    ...previousData,
+                                    endTime: event.target.value
+                                }))
+                            }}
+                        />
+        
+                        {errorData.endTime !== "" ? 
+                        <p className='error-message'>{errorData.endTime}</p> 
+                        : null}
+        
+                        {errorData.timeError !== "" ?
+                        <p className='error-message'>{errorData.timeError}</p> 
+                        : null
+                        }
+                    </div>
+    
+                    <div className="form-field">
+                        <label htmlFor="break-duration-input">Unpaid Break Duration In Minutes</label>
+                        <input 
+                            id='break-duration-input'
+                            className={errorData.unpaidBreakDuration !== "" 
+                                ? "invalid unpaid-break-duration-input"
+                                : "unpaid-break-duration-input"
+                            }
+                            type="number"
+                            value={timesheetFormData.unpaidBreakDuration}
+                            onChange={(event) => {
+                                setTimesheetFormData(previousData => ({
+                                    ...previousData,
+                                    unpaidBreakDuration: event.target.value
+                                }))
+                            }}
+                        />
+                        
+                        {errorData.unpaidBreakDuration !== "" ? 
+                        <p className='error-message'>{errorData.unpaidBreakDuration}</p> 
+                        : null}
+                    </div>
+    
+                    <div className="form-field form-field-full">
+                        <div className="calculatedHours">
+                            <div className="total-hours-container">
+                                <p>Total Hours :</p>
+                                <p>
+                                    {totalHours !== null ? totalHours.toFixed(2) : null}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div className="form-field">
+                        <label htmlFor="total-paid-hours-input">Total Paid Hours</label>
+                        <input 
+                            id='total-paid-hours-input'
+                            className={errorData.totalPaidHours !== "" 
+                                ? "invalid total-paid-hours-input"
+                                : "total-paid-hours-input"
+                            }
+                            type="number"
+                            value={timesheetFormData.totalPaidHours} 
+                            onChange={(event) => {
+                                setTimesheetFormData(previousData => ({
+                                    ...previousData,
+                                    totalPaidHours: event.target.value
+                                }))
+                            }}
+                        />
+        
+                        {errorData.totalPaidHours !== "" ? 
+                        <p className='error-message'>{errorData.totalPaidHours}</p> 
+                        : null}
+                    </div>
+    
+                    <div className="form-field">
+                        <label htmlFor="rate-multiplier-select">Hourly Rate Mulitplier</label>
+                        <select 
+                            name="rate-multiplier-select" 
+                            id="rate-multiplier-select"
+                            className='rate-multiplier-select'
+                            value={timesheetFormData.rateMultiplier}
+                            onChange={(event) => {
+                                setTimesheetFormData(previousData => ({
+                                    ...previousData,
+                                    rateMultiplier: event.target.value
+                                }))
+                            }}
+                            >
+                                <option value="1">1</option>
+                                <option value="1.25">1.25</option>
+                                <option value="1.5">1.5</option>
+                                <option value="1.75">1.75</option>
+                                <option value="2">2</option>
+                                <option value="2.25">2.25</option>
+                                <option value="2.5">2.5</option>
+                                <option value="2.75">2.75</option>
+                                <option value="3">3</option>
+                        </select>
+                    </div>
+    
+                    <div className="form-field">
+                        <label htmlFor="total-miles-input">Total Miles</label>
+                        <input 
+                            id='total-miles-input'
+                            className={errorData.totalMiles !== "" 
+                                ? "invalid total-miles-input"
+                                : "total-miles-input"
+                            }
+                            type="number"
+                            value={timesheetFormData.totalMiles}
+                            onChange={(event) => {
+                                setTimesheetFormData(previousData => ({
+                                    ...previousData,
+                                    totalMiles: event.target.value
+                                }))
+                            }}
+                        />
+        
+                        {errorData.totalMiles !== "" ? 
+                        <p className='error-message'>{errorData.totalMiles}</p> 
+                        : null}
+                    </div>
+            </div>
 
                 <button
                     type='submit'
+                    className='submit-timesheet-button'
                 >
-                    Submit
+                    Save Timesheet
                 </button>
             </form>
         )
