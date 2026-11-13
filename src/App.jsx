@@ -12,9 +12,13 @@ function App() {
   }
 
   return (
-    <TimesheetForm
-    onAddTimesheet={addTimesheetEntry}
-    />
+    <div className="app">
+      <main className="app-main">
+        <TimesheetForm
+        onAddTimesheet={addTimesheetEntry}
+        />
+      </main>
+    </div>
   )
 }
 
