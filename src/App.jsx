@@ -2,13 +2,29 @@ import './App.css'
 
 import { useState } from 'react'
 
-import TimesheetForm from './assets/components/TimesheetForm/TimesheetForm'
+import TimesheetForm from './components/TimesheetForm/TimesheetForm'
 
 function App() {
   const [timesheetEntries, setTimesheetEntries] = useState([])
 
   function addTimesheetEntry(timesheetForm) {
-    console.log(timesheetForm)
+    const newTimesheet = {
+      id: crypto.randomUUID(),
+      date: timesheetForm.date,
+      location: timesheetForm.location,
+      startTime: timesheetForm.startTime,
+      endTime: timesheetForm.endTime,
+      unpaidBreakDuration: timesheetForm.unpaidBreakDuration,
+      totalHours: timesheetForm.totalHours,
+      totalPaidHours: timesheetForm.totalPaidHours,
+      rateMultiplier: timesheetForm.rateMultiplier,
+      totalMiles: timesheetForm.totalMiles
+    }
+
+    setTimesheetEntries(previousEntries => [
+      newTimesheet,
+      ...previousEntries
+    ])
   }
 
   return (
