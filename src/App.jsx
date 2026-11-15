@@ -3,6 +3,15 @@ import './App.css'
 import { useState } from 'react'
 
 import TimesheetForm from './components/TimesheetForm/TimesheetForm'
+import Timesheet from './components/Timesheet/Timesheet'
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import {
+  faHelmetSafety,
+  faGear,
+  faPlus
+} from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [timesheetEntries, setTimesheetEntries] = useState([])
@@ -27,12 +36,59 @@ function App() {
     ])
   }
 
+  const [timesheetToEdit, setTimesheetToEdit] = useState(null)
+
+  const timesheets = timesheetEntries.map(function(timesheet) {
+    return <Timesheet
+      key={timesheet.id}
+      timesheet={timesheet}
+      className= "timesheet-card"
+      onEdit={setTimesheetToEdit}
+    />
+  })
+
   return (
     <div className="app">
+      <header>
+        <div className="heading-main">
+          <div className="heading-logo">
+            <FontAwesomeIcon icon={faHelmetSafety} />
+          </div>
+          <div className="heading-text">
+            <h2>Subcontractor Hub</h2>
+            <p>Timesheets & Invoicing</p>
+          </div>
+          <button>
+            <FontAwesomeIcon icon={faGear}/>
+          </button>
+        </div>
+        <div className="heading-tab-buttons">
+          <button>
+            Timesheets
+          </button>
+          <button>
+            Invoices
+          </button>
+        </div>
+      </header>
       <main className="app-main">
+        <div className="main-heading">
+          <div className="main-heading-text">
+            <h1>My Timesheets</h1>
+            <p>Manage your recorded workdays</p>
+          </div>
+          <button>
+            <FontAwesomeIcon icon={faPlus}/>
+            Add Timesheet
+          </button>
+        </div>
         <TimesheetForm
         onAddTimesheet={addTimesheetEntry}
+        timesheetToEdit={timesheetToEdit !== null ? timesheetToEdit : "new"}
         />
+        <div className="timesheets-container">
+          {timesheets}
+        </div>
       </main>
     </div>
   )

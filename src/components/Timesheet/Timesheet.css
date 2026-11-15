@@ -1,0 +1,355 @@
+/* ========================================
+    TIMESHEET CARD
+    Mobile-first styling
+======================================== */
+
+.timesheet-container {
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.05);
+}
+
+/* ========================================
+    CARD HEADER
+======================================== */
+
+.timesheet-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.timesheet-heading-info {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.timesheet-heading-info h2 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.timesheet-heading-location {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    color: #64748b;
+}
+
+.timesheet-heading-location svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+    font-size: 0.85rem;
+}
+
+.timesheet-heading-location p {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* Recorded status */
+
+.timesheet-heading-status {
+    flex-shrink: 0;
+    padding: 5px 10px;
+
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 999px;
+}
+
+.timesheet-heading-status p {
+    margin: 0;
+    color: #15803d;
+    font-size: 0.72rem;
+    font-weight: 650;
+}
+
+/* ========================================
+    MAIN CONTENT
+======================================== */
+
+.timesheet-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* Start, finish and break */
+
+.timesheet-shift-times {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.start-time,
+.end-time,
+.break-duration {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.timesheet-shift-times h3 {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.timesheet-shift-times p {
+    margin: 0;
+    color: #0f172a;
+    font-size: 0.95rem;
+    font-weight: 650;
+    line-height: 1.5;
+}
+
+/* ========================================
+    HOURS PANEL
+======================================== */
+
+.timesheet-shift-hours {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    padding: 18px;
+
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+}
+
+.hours-worked,
+.paid-hours {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.hours-worked p,
+.paid-hours p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.hours-worked p:first-child,
+.paid-hours p:first-child {
+    color: #475569;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.hours-worked p:last-child {
+    color: #1d4ed8;
+    font-size: 0.95rem;
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.paid-hours p:last-child {
+    color: #1d4ed8;
+    font-size: 1.25rem;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+/* ========================================
+    ADDITIONAL INFORMATION
+======================================== */
+
+.timesheet-additional-info {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.rate-multiplier,
+.mileage {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.rate-multiplier p,
+.mileage p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.rate-multiplier p:first-child,
+.mileage p:first-child {
+    color: #64748b;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.rate-multiplier p:last-child,
+.mileage p:last-child {
+    color: #0f172a;
+    font-size: 0.95rem;
+    font-weight: 650;
+}
+
+/* ========================================
+    EDIT AND DELETE ACTIONS
+======================================== */
+
+.timesheet-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding-top: 18px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.edit-button,
+.delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 42px;
+    padding: 10px 14px;
+
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.2;
+
+    cursor: pointer;
+    transition:
+        background-color 150ms ease,
+        border-color 150ms ease;
+}
+
+.edit-button {
+    color: #475569;
+}
+
+.edit-button:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.delete-button {
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+.delete-button:hover {
+    background: #fef2f2;
+    border-color: #f87171;
+}
+
+.edit-button svg,
+.delete-button svg {
+    font-size: 0.9rem;
+}
+
+.edit-button p,
+.delete-button p {
+    margin: 0;
+    color: inherit;
+}
+
+.edit-button:focus-visible,
+.delete-button:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.25);
+    outline-offset: 3px;
+}
+
+/* ========================================
+    TABLET AND DESKTOP
+======================================== */
+
+@media (min-width: 640px) {
+    .timesheet-container {
+        padding: 28px 32px;
+        gap: 24px;
+    }
+
+    .timesheet-heading-info h2 {
+        font-size: 1.2rem;
+    }
+
+    .timesheet-heading-location p {
+        font-size: 0.875rem;
+    }
+
+    .timesheet-main {
+        gap: 24px;
+        padding-top: 24px;
+    }
+
+    .timesheet-shift-times {
+        gap: 24px;
+    }
+
+    .timesheet-shift-times h3 {
+        font-size: 0.85rem;
+    }
+
+    .timesheet-shift-times p {
+        font-size: 1.05rem;
+    }
+
+    .timesheet-shift-hours {
+        padding: 24px;
+    }
+
+    .paid-hours p:last-child {
+        font-size: 1.4rem;
+    }
+
+    .timesheet-buttons {
+        padding-top: 22px;
+    }
+}
+
+/* ========================================
+    ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .edit-button,
+    .delete-button {
+        transition: none;
+    }
+}

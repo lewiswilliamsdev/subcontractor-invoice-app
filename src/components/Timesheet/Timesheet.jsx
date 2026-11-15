@@ -7,7 +7,7 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function Timesheet(props) {
     function getDate() {
-        const date = props.timesheet.date;
+        const date = new Date(props.timesheet.date);
 
         return date.toLocaleDateString("en-GB", {
             weekday: "long",
@@ -51,35 +51,41 @@ function Timesheet(props) {
                 <div className="timesheet-shift-hours">
                     <div className="hours-worked">
                         <p>Hours worked</p>
-                        <p>{props.timesheet.totalHours}</p>
+                        <p>{props.timesheet.totalHours} hours</p>
                     </div>
                     <div className="paid-hours">
                         <p>Paid hours</p>
-                        <p>{props.timesheet.totalPaidHours}</p>
+                        <p>{props.timesheet.totalPaidHours} hours</p>
                     </div>
                 </div>
 
                 <div className="timesheet-additional-info">
                     <div className="rate-multiplier">
                         <p>Rate multiplier</p>
-                        <p>{props.timesheet.rateMultiplier}</p>
+                        <p>{props.timesheet.rateMultiplier}x</p>
                     </div>
                     <div className="mileage">
                         <p>mileage</p>
-                        <p>{props.timesheet.totalMiles}</p>
+                        <p>{props.timesheet.totalMiles} Miles</p>
                     </div>
                 </div>
             </div>
 
             <div className="timesheet-buttons">
-                <div className="edit-button">
+                <button 
+                    className='edit-button'
+                    onClick={() => props.onEdit(props.timesheet)}
+                    >
                     <FontAwesomeIcon icon={faPenToSquare} />
                     <p>Edit</p>
-                </div>
-                <div className="delete-button">
+                </button>
+                <button 
+                    className='delete-button'
+                    onClick={() => props.onDelete(props.timesheet.id)}
+                    >
                     <FontAwesomeIcon icon={faTrash} />
                     <p>Delete</p>
-                </div>
+                </button>
             </div>
         </div>
     )

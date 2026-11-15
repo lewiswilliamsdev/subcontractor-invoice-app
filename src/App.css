@@ -16,20 +16,263 @@
   flex-direction: column;
   align-items: center;
 
-  padding: 24px 16px 48px;
   background-color: #f1f5f9;
 }
 
-/* Main content */
+/* ========================================
+    HEADER
+======================================== */
+
+.app header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Header branding */
+
+.heading-main {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px 16px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.heading-logo {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #eff6ff;
+  color: #2563eb;
+
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+
+  font-size: 1.25rem;
+}
+
+.heading-text {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.heading-text h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.heading-text p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+/* Settings icon */
+
+.heading-main button {
+  flex-shrink: 0;
+  padding: 10px;
+
+  color: #64748b;
+  background-color: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+
+  font-size: 1rem;
+}
+
+/* ========================================
+    HEADER NAVIGATION
+======================================== */
+
+.heading-tab-buttons {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 16px;
+
+  display: flex;
+  align-items: center;
+  gap: 28px;
+
+  margin-bottom: 1rem;
+}
+
+.heading-tab-buttons button {
+  position: relative;
+
+  min-height: 48px;
+  padding: 12px 2px;
+
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+
+  color: #64748b;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.heading-tab-buttons button:hover {
+  color: #2563eb;
+}
+
+/*  Temporary active styling for Timesheets.
+    Replace with a state-driven class when
+    navigation functionality is implemented. */
+
+.heading-tab-buttons button:first-child {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+}
+
+.heading-tab-buttons button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.25);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ========================================
+    MAIN CONTENT
+======================================== */
 
 .app-main {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1200px;
+
+  padding: 28px 16px 48px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
+}
+
+/* ========================================
+    MAIN PAGE HEADING
+======================================== */
+
+.main-heading {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 18px;
+}
+
+.main-heading-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.main-heading-text h1 {
+  margin: 0;
+
+  color: #0f172a;
+  font-size: 1.5rem;
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.main-heading-text p {
+  margin: 0;
+
+  color: #64748b;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Add Timesheet button */
+
+.main-heading>button {
+  width: 100%;
+  min-height: 46px;
+
+  padding: 12px 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  background-color: #2563eb;
+  border: 1px solid #2563eb;
+  border-radius: 10px;
+
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.main-heading>button:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.main-heading>button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.3);
+  outline-offset: 3px;
+}
+
+.main-heading>button svg {
+  font-size: 0.9rem;
+}
+
+/* ========================================
+    TIMESHEET GRID
+======================================== */
+
+.timesheets-container {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+/* Ensure cards fit their grid cells */
+
+.timesheets-container>.timesheet-container {
+  width: 100%;
+  max-width: 650px;
+  min-width: 0;
+  margin: 0 auto;
 }
 
 /* ========================================
@@ -37,8 +280,50 @@
 ======================================== */
 
 @media (min-width: 640px) {
-  .app {
+  .heading-main {
+    padding: 24px;
+    gap: 14px;
+  }
+
+  .heading-logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .heading-text h2 {
+    font-size: 1.15rem;
+  }
+
+  .heading-text p {
+    font-size: 0.8rem;
+  }
+
+  .heading-tab-buttons {
+    padding: 0 24px;
+  }
+
+  .app-main {
     padding: 40px 24px 64px;
+    gap: 32px;
+  }
+
+  .main-heading {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .main-heading-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .main-heading>button {
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .timesheets-container {
+    gap: 24px;
   }
 }
 
@@ -47,11 +332,37 @@
 ======================================== */
 
 @media (min-width: 1024px) {
-  .app {
-    padding: 56px 32px 80px;
+  .heading-main {
+    padding: 24px 32px;
+  }
+
+  .heading-tab-buttons {
+    padding: 0 32px;
   }
 
   .app-main {
-    gap: 40px;
+    padding: 48px 32px 80px;
+    gap: 36px;
+  }
+
+  .main-heading-text h1 {
+    font-size: 2rem;
+  }
+
+  .timesheets-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/* ========================================
+    ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .heading-tab-buttons button,
+  .main-heading>button {
+    transition: none;
   }
 }

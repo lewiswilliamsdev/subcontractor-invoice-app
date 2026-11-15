@@ -27,7 +27,24 @@
 
     function TimesheetForm(props) {
 
-        const [timesheetFormData, setTimesheetFormData] = useState(initialTimesheetFormData)
+        console.log(props.timesheetToEdit)
+
+        const [timesheetFormData, setTimesheetFormData] = useState(
+            props.timesheetToEdit !== "new" 
+            ? {
+                ...initialTimesheetFormData,
+                date: props.timesheetToEdit.date,
+                location: props.timesheetToEdit.location,
+                startTime: props.timesheetToEdit.startTime,
+                endTime: props.timesheetToEdit.endTime,
+                unpaidBreakDuration: props.timesheetToEdit.unpaidBreakDuration,
+                totalPaidHours: props.timesheetToEdit.totalPaidHours,
+                rateMultiplier: props.timesheetToEdit.rateMultiplier
+            }
+            : initialTimesheetFormData
+        )
+
+        console.log(timesheetFormData)
 
         const [errorData, setErrorData] = useState(initialErrorData)
 
