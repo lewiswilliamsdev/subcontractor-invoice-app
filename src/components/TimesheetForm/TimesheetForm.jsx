@@ -27,8 +27,6 @@
 
     function TimesheetForm(props) {
 
-        console.log(props.timesheetToEdit)
-
         const [timesheetFormData, setTimesheetFormData] = useState(
             props.timesheetToEdit !== "new" 
             ? {
@@ -43,8 +41,6 @@
             }
             : initialTimesheetFormData
         )
-
-        console.log(timesheetFormData)
 
         const [errorData, setErrorData] = useState(initialErrorData)
 

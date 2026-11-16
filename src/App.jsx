@@ -10,11 +10,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHelmetSafety,
   faGear,
-  faPlus
+  faPlus,
+  faMinus
 } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [timesheetEntries, setTimesheetEntries] = useState([])
+
+  const [timesheetFormOpen, setTimesheetFormOpen] = useState(null)
 
   function addTimesheetEntry(timesheetForm) {
     const newTimesheet = {
@@ -34,6 +37,8 @@ function App() {
       newTimesheet,
       ...previousEntries
     ])
+
+    setTimesheetFormOpen(null);
   }
 
   const [timesheetToEdit, setTimesheetToEdit] = useState(null)
@@ -43,9 +48,25 @@ function App() {
       key={timesheet.id}
       timesheet={timesheet}
       className= "timesheet-card"
-      onEdit={setTimesheetToEdit}
+      onEdit={editTimeSheet}
     />
   })
+
+  function editTimeSheet(timesheetToEdit) {
+    setTimesheetToEdit(timesheetToEdit);
+
+    setTimesheetFormOpen(true);
+  }
+
+  let updatedTimesheetEntries = timesheetEntries
+
+  function updateTimesheetEntry() {
+    updatedTimesheetEntries = timesheetEntries.map(function(timesheet) {
+      if (timesheet.id === timesheetToEdit.id) {
+        
+      }
+    })
+  }
 
   return (
     <div className="app">
@@ -77,15 +98,21 @@ function App() {
             <h1>My Timesheets</h1>
             <p>Manage your recorded workdays</p>
           </div>
-          <button>
-            <FontAwesomeIcon icon={faPlus}/>
-            Add Timesheet
+          <button
+            onClick={timesheetFormOpen === null 
+              ? () => setTimesheetFormOpen(true) : () => setTimesheetFormOpen(null)}
+            className={timesheetFormOpen === null ? "add-timesheet-button" : "close-timesheet-button"}
+          >
+            {timesheetFormOpen === null ? <FontAwesomeIcon icon={faPlus}/> : <FontAwesomeIcon icon={faMinus}/>}
+            {timesheetFormOpen === null ? "Add timesheet" : "Cancel"}
           </button>
         </div>
-        <TimesheetForm
+        {timesheetFormOpen !== null && (
+          <TimesheetForm
         onAddTimesheet={addTimesheetEntry}
         timesheetToEdit={timesheetToEdit !== null ? timesheetToEdit : "new"}
         />
+        )}
         <div className="timesheets-container">
           {timesheets}
         </div>

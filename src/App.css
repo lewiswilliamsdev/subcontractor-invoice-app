@@ -222,9 +222,6 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
-
-  background-color: #2563eb;
-  border: 1px solid #2563eb;
   border-radius: 10px;
 
   color: #ffffff;
@@ -239,11 +236,6 @@
     border-color 150ms ease;
 }
 
-.main-heading>button:hover {
-  background-color: #1d4ed8;
-  border-color: #1d4ed8;
-}
-
 .main-heading>button:focus-visible {
   outline: 3px solid rgba(37, 99, 235, 0.3);
   outline-offset: 3px;
@@ -252,6 +244,29 @@
 .main-heading>button svg {
   font-size: 0.9rem;
 }
+
+.main-heading .add-timesheet-button {
+  background-color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.main-heading .add-timesheet-button:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.main-heading .close-timesheet-button {
+  background-color: #64748b;
+  border: 1px solid #64748b;
+}
+
+
+.main-heading .close-timesheet-button:hover {
+  background-color: 	#475569;
+  border-color: #475569;
+}
+
+
 
 /* ========================================
     TIMESHEET GRID
