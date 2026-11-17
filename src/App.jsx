@@ -146,3 +146,5 @@ function App() {
 }
 
 export default App
+
+// next task: implementing timesheet deletion and persistence.
