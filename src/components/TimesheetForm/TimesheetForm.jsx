@@ -37,7 +37,8 @@
                 endTime: props.timesheetToEdit.endTime,
                 unpaidBreakDuration: props.timesheetToEdit.unpaidBreakDuration,
                 totalPaidHours: props.timesheetToEdit.totalPaidHours,
-                rateMultiplier: props.timesheetToEdit.rateMultiplier
+                rateMultiplier: props.timesheetToEdit.rateMultiplier,
+                totalMiles: props.timesheetToEdit.totalMiles
             }
             : initialTimesheetFormData
         )
@@ -175,7 +176,11 @@
                 totalMiles: Number(timesheetFormData.totalMiles)
             }
 
-            props.onAddTimesheet(updatedTimeSheet);
+            if (props.timesheetToEdit !== "new") {
+                props.onUpdateTimesheet(props.timesheetToEdit.id, updatedTimeSheet)
+            } else {
+                props.onAddTimesheet(updatedTimeSheet);
+            }
 
             setTimesheetFormData(initialTimesheetFormData);
             setErrorData(initialErrorData);

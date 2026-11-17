@@ -58,14 +58,30 @@ function App() {
     setTimesheetFormOpen(true);
   }
 
-  let updatedTimesheetEntries = timesheetEntries
-
-  function updateTimesheetEntry() {
-    updatedTimesheetEntries = timesheetEntries.map(function(timesheet) {
-      if (timesheet.id === timesheetToEdit.id) {
-        
-      }
+  function updateTimesheetEntry(timesheetId, updatedTimesheet) {
+    setTimesheetEntries(previousEntries => {
+      return previousEntries.map(function(timesheet) {
+        if (timesheet.id === timesheetId) {
+          return {
+            ...timesheet,
+            date: updatedTimesheet.date,
+            location: updatedTimesheet.location,
+            startTime: updatedTimesheet.startTime,
+            endTime: updatedTimesheet.endTime,
+            unpaidBreakDuration: updatedTimesheet.unpaidBreakDuration,
+            totalHours: updatedTimesheet.totalHours,
+            totalPaidJours: updatedTimesheet.totalPaidHours,
+            rateMultiplier: updatedTimesheet.rateMultiplier,
+            totalMiles: updatedTimesheet.totalMiles
+          }
+        } else {
+          return timesheet
+        }
+      })
     })
+
+    setTimesheetFormOpen(null)
+    setTimesheetToEdit(null)
   }
 
   return (
@@ -100,7 +116,14 @@ function App() {
           </div>
           <button
             onClick={timesheetFormOpen === null 
-              ? () => setTimesheetFormOpen(true) : () => setTimesheetFormOpen(null)}
+              ? () => {
+                setTimesheetFormOpen(true)
+                setTimesheetToEdit(null)
+              }
+              : () => {
+                setTimesheetFormOpen(null)
+                setTimesheetToEdit(null)
+              }}
             className={timesheetFormOpen === null ? "add-timesheet-button" : "close-timesheet-button"}
           >
             {timesheetFormOpen === null ? <FontAwesomeIcon icon={faPlus}/> : <FontAwesomeIcon icon={faMinus}/>}
@@ -111,6 +134,7 @@ function App() {
           <TimesheetForm
         onAddTimesheet={addTimesheetEntry}
         timesheetToEdit={timesheetToEdit !== null ? timesheetToEdit : "new"}
+        onUpdateTimesheet={updateTimesheetEntry}
         />
         )}
         <div className="timesheets-container">

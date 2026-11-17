@@ -65,7 +65,7 @@ function Timesheet(props) {
                         <p>{props.timesheet.rateMultiplier}x</p>
                     </div>
                     <div className="mileage">
-                        <p>mileage</p>
+                        <p>Mileage</p>
                         <p>{props.timesheet.totalMiles} Miles</p>
                     </div>
                 </div>
