@@ -1,0 +1,77 @@
+
+.delete-confirmation-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+
+    width: calc(100% - 32px);
+    max-width: 400px;
+    padding: 24px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    background: #ffffff;
+    border: 1px solid #e3e9f1;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(24, 43, 75, 0.15);
+}
+
+.delete-confirmation-message p {
+    width: 100%;
+    margin: 0 0 12px;
+
+    color: #334155;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.delete-confirmation-message button {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    padding: 11px 14px;
+
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: background-color 150ms ease;
+}
+
+.cancel-button {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.cancel-button:hover {
+    background: #e2e8f0;
+}
+
+.confirm-delete-button {
+    background: #dc2626;
+    color: #ffffff;
+    border: 1px solid #dc2626;
+}
+
+.confirm-delete-button:hover {
+    background: #b91c1c;
+}
+
+.delete-confirmation-message button:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+@media (min-width: 600px) {
+    .delete-confirmation-message {
+        padding: 28px;
+    }
+}

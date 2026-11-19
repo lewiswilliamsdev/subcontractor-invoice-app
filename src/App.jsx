@@ -1,9 +1,10 @@
 import './App.css'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import TimesheetForm from './components/TimesheetForm/TimesheetForm'
 import Timesheet from './components/Timesheet/Timesheet'
+import DeleteConfirmation from './components/DeleteConfirmation/DeleteConfirmation'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -15,7 +16,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
-  const [timesheetEntries, setTimesheetEntries] = useState([])
+  const savedTimesheets = localStorage.getItem("timesheetEntries")
+
+  let initialTimesheets;
+
+  if (savedTimesheets === null) {
+    initialTimesheets = []
+  } else {
+    const parsedTimesheets = JSON.parse(savedTimesheets)
+
+    initialTimesheets = parsedTimesheets
+  }
+
+  const [timesheetEntries, setTimesheetEntries] = useState(initialTimesheets)
 
   const [timesheetFormOpen, setTimesheetFormOpen] = useState(null)
 
@@ -43,12 +56,15 @@ function App() {
 
   const [timesheetToEdit, setTimesheetToEdit] = useState(null)
 
+  const [timesheetPendingDeletion, setTimesheetPendingDeletion] = useState(null)
+
   const timesheets = timesheetEntries.map(function(timesheet) {
     return <Timesheet
       key={timesheet.id}
       timesheet={timesheet}
       className= "timesheet-card"
       onEdit={editTimeSheet}
+      onDelete={setTimesheetPendingDeletion}
     />
   })
 
@@ -70,7 +86,7 @@ function App() {
             endTime: updatedTimesheet.endTime,
             unpaidBreakDuration: updatedTimesheet.unpaidBreakDuration,
             totalHours: updatedTimesheet.totalHours,
-            totalPaidJours: updatedTimesheet.totalPaidHours,
+            totalPaidHours: updatedTimesheet.totalPaidHours,
             rateMultiplier: updatedTimesheet.rateMultiplier,
             totalMiles: updatedTimesheet.totalMiles
           }
@@ -83,6 +99,20 @@ function App() {
     setTimesheetFormOpen(null)
     setTimesheetToEdit(null)
   }
+
+  function deleteTimesheet(timesheetId) {
+    const updatedTimesheets = timesheetEntries.filter(function(timesheet) {
+      return timesheet.id !== timesheetId
+    })
+
+    setTimesheetEntries(updatedTimesheets)
+  }
+
+  useEffect(() => {
+    localStorage.setItem("timesheetEntries", JSON.stringify(timesheetEntries))
+  }, [timesheetEntries])
+
+  console.log(savedTimesheets)
 
   return (
     <div className="app">
@@ -140,11 +170,19 @@ function App() {
         <div className="timesheets-container">
           {timesheets}
         </div>
+        {timesheetPendingDeletion !== null && 
+          < DeleteConfirmation 
+            onCancel={() => setTimesheetPendingDeletion(null)}
+            onConfirmDelete={() => {
+              deleteTimesheet(timesheetPendingDeletion)
+              setTimesheetPendingDeletion(null)
+            }
+            }
+          />
+        }
       </main>
     </div>
   )
 }
 
 export default App
-
-// next task: implementing timesheet deletion and persistence.
