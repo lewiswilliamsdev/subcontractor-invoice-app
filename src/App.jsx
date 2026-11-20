@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import TimesheetForm from './components/TimesheetForm/TimesheetForm'
 import Timesheet from './components/Timesheet/Timesheet'
 import DeleteConfirmation from './components/DeleteConfirmation/DeleteConfirmation'
+import InvoiceSection from './components/InvoiceSection/InvoiceSection' 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -114,6 +115,8 @@ function App() {
 
   console.log(savedTimesheets)
 
+  const [invoiceSectionOpen, setInvoiceSectionOpen] = useState(false)
+
   return (
     <div className="app">
       <header>
@@ -130,10 +133,14 @@ function App() {
           </button>
         </div>
         <div className="heading-tab-buttons">
-          <button>
+          <button
+            onClick={() => setInvoiceSectionOpen(false)}
+          >
             Timesheets
           </button>
-          <button>
+          <button
+            onClick={() => setInvoiceSectionOpen(true)}
+          >
             Invoices
           </button>
         </div>
@@ -167,9 +174,11 @@ function App() {
         onUpdateTimesheet={updateTimesheetEntry}
         />
         )}
-        <div className="timesheets-container">
-          {timesheets}
-        </div>
+        {invoiceSectionOpen === false &&
+          <div className="timesheets-container">
+            {timesheets}
+          </div>
+          }
         {timesheetPendingDeletion !== null && 
           < DeleteConfirmation 
             onCancel={() => setTimesheetPendingDeletion(null)}
@@ -180,6 +189,12 @@ function App() {
             }
           />
         }
+        {invoiceSectionOpen === true &&
+          <div className="invoice-section">
+            <InvoiceSection/>
+          </div>
+          }
+
       </main>
     </div>
   )
